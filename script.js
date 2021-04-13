@@ -32,15 +32,21 @@ function fillTable() {
   if (table === null) 
     return;
 
+  table.onclick = function(event) {
+    let td = event.target.closest('td');
+    
+    if (!td) return;
+    
+    if (!table.contains(td)) return;
+    
+    td.style.backgroundColor = (td.style.backgroundColor === '') ? '#' + getRandomColor() : '';
+  };
+
   for (let r = 0; r < table.childNodes.length; r++) {
     const tr = table.childNodes[r];
     for (let c = 0; c < tr.childNodes.length; c++) {
       const td = tr.childNodes[c];
-      td.innerHTML = `${r + 1}${c + 1}`;
-
-      td.addEventListener('click', function() {
-        td.style.backgroundColor = (td.style.backgroundColor === '') ? '#' + getRandomColor() : '';      
-      });   
+      td.innerHTML = `${r + 1}${c + 1}`;   
     }  
   }
 }
